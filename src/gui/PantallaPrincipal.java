@@ -4,6 +4,9 @@
  */
 package gui;
 
+import javax.swing.table.DefaultTableModel;
+import dto.Cliente;
+
 /**
  *
  * @author adrgimmun
@@ -16,7 +19,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
      * Creates new form PantallaPrincipal
      */
     public PantallaPrincipal() {
-        initComponents();
+        initComponents(); // generado por NetBeans
+        inicializarTabla(); // SIEMPRE después de initComponents()
+    }
+    
+    private void inicializarTabla() {
+        DefaultTableModel dtm = new DefaultTableModel();
+        dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
+        cliente.setModel(dtm); // 'clientes' es la JTable del diseñador
+    }
+    
+    public void anadirCliente(Cliente cliente) {
+        DefaultTableModel dtm = (DefaultTableModel) cliente.getModel();
+        dtm.addRow(cliente.toArrayString());
     }
 
     /**
