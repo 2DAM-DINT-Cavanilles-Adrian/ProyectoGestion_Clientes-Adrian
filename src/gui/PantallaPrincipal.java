@@ -45,12 +45,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         cliente = new javax.swing.JTable();
+        jButtonEliminar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         alta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         cliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -64,6 +66,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(cliente);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 250));
+
+        jButtonEliminar.setText("Eliminar Cliente");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 400, 40));
 
         jMenu1.setText("Clientes");
 
@@ -82,17 +94,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         setJMenuBar(jMenuBar1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 281, Short.MAX_VALUE)
-        );
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -101,6 +102,17 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DialogoAlta dialogoAlta = new DialogoAlta(this, true); // true = modal
         dialogoAlta.setVisible(true);
     }//GEN-LAST:event_altaActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+        int fila = cliente.getSelectedRow(); // 'cliente' es tu JTable
+        if (fila == -1) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Selecciona una fila para eliminar.");
+        } else {
+            DefaultTableModel dtm = (DefaultTableModel) cliente.getModel();
+            dtm.removeRow(fila);
+        }
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,6 +142,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem alta;
     private javax.swing.JTable cliente;
+    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
