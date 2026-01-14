@@ -159,6 +159,11 @@ public class DialogoAlta extends javax.swing.JDialog {
         String apellidos = jtfApellidos.getText();
         Date fechaAlta = (Date) spinnerFechaAlta.getValue();
         String provincia = (String) jcbProvincia.getSelectedItem();
+        if (jtfNombre.getText().trim().isEmpty() || jtfApellidos.getText().trim().isEmpty()) {
+        javax.swing.JOptionPane.showMessageDialog(this, "Es obligatorio colocar un Nombre y Apellido", "Error de validación", javax.swing.JOptionPane.WARNING_MESSAGE);
+        return;
+        }
+        
         Cliente cliente = new Cliente(nombre, apellidos, fechaAlta, provincia);
         pantallaPrincipal.anadirCliente(cliente);
         dispose();
