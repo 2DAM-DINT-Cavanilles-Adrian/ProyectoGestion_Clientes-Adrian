@@ -27,10 +27,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
         cliente.setModel(dtm); // 'clientes' es la JTable del diseñador
-    }
+    }   
     
     public void anadirCliente(Cliente cliente) {
-        DefaultTableModel dtm = (DefaultTableModel) cliente.getModel();
+        DefaultTableModel dtm = (DefaultTableModel) this.cliente.getModel();
         dtm.addRow(cliente.toArrayString());
     }
 
