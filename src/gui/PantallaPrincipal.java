@@ -6,6 +6,7 @@ package gui;
 
 import javax.swing.table.DefaultTableModel;
 import dto.Cliente;
+import javax.swing.RowFilter;
 
 /**
  *
@@ -14,6 +15,8 @@ import dto.Cliente;
 public class PantallaPrincipal extends javax.swing.JFrame {
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PantallaPrincipal.class.getName());
+    
+    private javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> sorter;
 
     /**
      * Creates new form PantallaPrincipal
@@ -26,7 +29,14 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
         dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
-        cliente.setModel(dtm); // 'clientes' es la JTable del diseñador
+
+        // 1. Creamos el ordenador pasándole el modelo de la tabla
+        sorter = new javax.swing.table.TableRowSorter<>(dtm);
+
+        // 2. Le decimos a la tabla que use este ordenador
+        cliente.setRowSorter(sorter);
+
+        cliente.setModel(dtm);
     }   
     
     public void anadirCliente(Cliente cliente) {
@@ -46,6 +56,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         cliente = new javax.swing.JTable();
         jButtonEliminar = new javax.swing.JButton();
+        jTextFieldBusqueda = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         alta = new javax.swing.JMenuItem();
@@ -67,7 +78,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(cliente);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 250));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 400, 230));
 
         jButtonEliminar.setText("Eliminar Cliente");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +87,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 400, 40));
+
+        jTextFieldBusqueda.setText("Buscar...");
+        jTextFieldBusqueda.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                jTextFieldBusquedaCaretUpdate(evt);
+            }
+        });
+        jTextFieldBusqueda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldBusquedaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jTextFieldBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
 
         jMenu1.setText("Clientes");
 
@@ -114,6 +138,15 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void jTextFieldBusquedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldBusquedaActionPerformed
+
+    private void jTextFieldBusquedaCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_jTextFieldBusquedaCaretUpdate
+        // TODO add your handling code here:
+        sorter.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldBusqueda.getText()));
+    }//GEN-LAST:event_jTextFieldBusquedaCaretUpdate
+
     /**
      * @param args the command line arguments
      */
@@ -147,5 +180,6 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTextFieldBusqueda;
     // End of variables declaration//GEN-END:variables
 }
