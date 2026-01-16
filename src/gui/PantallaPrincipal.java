@@ -53,6 +53,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         cliente = new javax.swing.JTable();
         jButtonEliminar = new javax.swing.JButton();
         jTextFieldBusqueda = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnCargar = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         alta = new javax.swing.JMenuItem();
@@ -84,7 +86,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                 jButtonEliminarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 400, 40));
+        getContentPane().add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, 140, 40));
 
         jTextFieldBusqueda.setText("Buscar...");
         jTextFieldBusqueda.addCaretListener(new javax.swing.event.CaretListener() {
@@ -98,6 +100,26 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextFieldBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
+
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.setBorder(null);
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 130, 40));
+
+        btnCargar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnCargar.setText("Cargar");
+        btnCargar.setBorder(null);
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 130, 40));
 
         jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -147,6 +169,54 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         sorter.setRowFilter(RowFilter.regexFilter("(?i)" + jTextFieldBusqueda.getText()));
     }//GEN-LAST:event_jTextFieldBusquedaCaretUpdate
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+        try (java.io.FileWriter fw = new java.io.FileWriter("clientes.txt");
+            java.io.BufferedWriter bw = new java.io.BufferedWriter(fw)) {
+
+            DefaultTableModel dtm = (DefaultTableModel) cliente.getModel();
+            int filas = dtm.getRowCount();
+
+            for (int i = 0; i < filas; i++) {
+                String linea = dtm.getValueAt(i, 0) + "," +
+                               dtm.getValueAt(i, 1) + "," +
+                               dtm.getValueAt(i, 2) + "," +
+                               dtm.getValueAt(i, 3) + "," +
+                               dtm.getValueAt(i, 4) + "," +
+                               dtm.getValueAt(i, 5);
+                bw.write(linea);
+                bw.newLine();
+            }
+            javax.swing.JOptionPane.showMessageDialog(this, "Datos guardados con éxito.");
+
+        } catch (java.io.IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al guardar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        // TODO add your handling code here:
+        try (java.io.FileReader fr = new java.io.FileReader("clientes.txt");
+            java.io.BufferedReader br = new java.io.BufferedReader(fr)) {
+
+            DefaultTableModel dtm = (DefaultTableModel) cliente.getModel();
+            dtm.setRowCount(0); // Limpiamos la tabla antes de cargar para no duplicar
+
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                // Separamos la línea por las comas
+                String[] datos = linea.split(",");
+                dtm.addRow(datos);
+            }
+            javax.swing.JOptionPane.showMessageDialog(this, "Datos cargados correctamente.");
+
+        } catch (java.io.FileNotFoundException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "No hay archivo de datos previo.");
+        } catch (java.io.IOException e) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al cargar: " + e.getMessage());
+        }
+    }//GEN-LAST:event_btnCargarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -174,6 +244,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem alta;
+    private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JTable cliente;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JMenu jMenu1;
