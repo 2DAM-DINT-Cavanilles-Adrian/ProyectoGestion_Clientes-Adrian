@@ -80,7 +80,9 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 400, 230));
 
+        jButtonEliminar.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButtonEliminar.setText("Eliminar Cliente");
+        jButtonEliminar.setBorder(null);
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonEliminarActionPerformed(evt);
@@ -100,6 +102,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jTextFieldBusqueda, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, -1));
+
+        jMenuBar1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jMenu1.setText("Clientes");
 
