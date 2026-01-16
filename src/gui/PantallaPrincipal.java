@@ -28,14 +28,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     
     private void inicializarTabla() {
         DefaultTableModel dtm = new DefaultTableModel();
-        dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia"});
+        dtm.setColumnIdentifiers(new String[]{"Nombre", "Apellidos", "Fecha Alta", "Provincia", "Email", "Teléfono"});
 
-        // 1. Creamos el ordenador pasándole el modelo de la tabla
         sorter = new javax.swing.table.TableRowSorter<>(dtm);
-
-        // 2. Le decimos a la tabla que use este ordenador
         cliente.setRowSorter(sorter);
-
         cliente.setModel(dtm);
     }   
     
